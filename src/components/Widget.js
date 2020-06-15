@@ -9,37 +9,26 @@ ReactFC.fcRoot(FusionCharts, Charts, FusionTheme);
 // Preparing the chart data
 const chartData = [
   {
-    label: "Venezuela",
-    value: "290"
+    label: "1",
+    value: "3"
   },
   {
-    label: "Saudi",
-    value: "260"
+    label: "2",
+    value: "2"
   },
   {
-    label: "Canada",
-    value: "180"
+    label: "3",
+    value: "4"
   },
   {
-    label: "Iran",
-    value: "140"
+    label: "4",
+    value: "5"
   },
   {
-    label: "Russia",
-    value: "115"
+    label: "5",
+    value: "1"
   },
-  {
-    label: "UAE",
-    value: "100"
-  },
-  {
-    label: "US",
-    value: "30"
-  },
-  {
-    label: "China",
-    value: "30"
-  }
+  
 ];
 
 
@@ -50,11 +39,11 @@ const chartConfigs = {
   dataFormat: 'json',
   dataSource: {
    chart: {
-   caption: "Countries With Most Oil Reserves [2017-18]",  
-   subCaption: "In MMbbl = One Million barrels",
-   xAxisName: "Country",
-   yAxisName: "Reserves (MMbbl)",
-   numberSuffix: "K",
+   caption: "IR SENSOR",  
+   subCaption: "",
+   xAxisName: "no of trials",
+   yAxisName: "object found or not",
+   numberSuffix: "",
    theme: "fusion"
  },
  data: chartData
