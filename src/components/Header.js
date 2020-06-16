@@ -15,9 +15,11 @@ class Header extends Component{
         link:"/login"
       }
     ],
-    email:""
+    email:"",
+
   };
- start = (e,mail) =>
+
+ start = (e) =>
  {
    if(e!=="")
    {
@@ -29,8 +31,7 @@ class Header extends Component{
           profile:"Profile",
           profilelink:"/profile",
           logout:"Logout",
-          Key:"API-Key",
-          email:mail
+          Key:"API-Key"
         },
         {
           name:"Widgets",
@@ -51,6 +52,11 @@ class Header extends Component{
     })
   }
  }
+
+getId = (e) => {
+  this.setState({email:e})
+}
+
   view = () => {
     return this.state.logged.map((logged,i) =>
     <div className="dropdown">
@@ -84,10 +90,10 @@ class Header extends Component{
             <ul >
             {this.view()}
             </ul>
-            <Route exact path="/login" render={(props) => <Login {...props} start={this.start} email={this.state.email} />}/>
-            <Route exact path="/" render={(props) => <Home {...props} logged={this.state.logged} email={this.state.email}/>}/>
-            <Route exact path="/register" render={(props)=><Register {...props}  start={this.start} email={this.state.email}/>}/>
-            <Route exact path="/profile" component={Profile}/>
+            <Route exact path="/login" render={(props) => <Login {...props} start={this.start} getId={this.getId} email={this.state.email} />}/>
+            <Route exact path="/" component={Home}/>
+            <Route exact path="/register" render={(props)=><Register {...props}  start={this.start}  getId={this.getId} email={this.state.email}/>}/>
+            <Route exact path="/profile" render={(props)=><Profile {...props} email={this.state.email}/>}/>
             <Route exact path="/key" component={Key}/>
             <Route exact path="/widget" component={Widget}/>
             </BrowserRouter>

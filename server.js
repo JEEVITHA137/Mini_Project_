@@ -9,7 +9,7 @@ var connection = mysql.createConnection({
   host:'localhost',
   user:'root',
   password:'',
-  database:'project',
+  database:'projectdb',
   multipleStatements: true
 });
 connection.connect();
@@ -29,12 +29,12 @@ app.get('/login',(req,res)=>{
 });
 
 app.get('/register/add',(req,res) => {
-  const {name,email,pass}=req.query;
-  const register = `insert into register values ('${email}','${pass}','${name}')`;
+  const {name,email,pass,roll,department,year,hint,api}=req.query;
+  const register = `insert into register values ('${email}','${name}','${pass}','${roll}','${department}','${year}','${hint}','${api}')`;
   connection.query(register,function(err,result){
     if(err)
     {
-      return res.send(err)
+      return res.send("invalid")
     }
     else {
       return res.send("successful")
@@ -42,6 +42,19 @@ app.get('/register/add',(req,res) => {
   });
 });
 
+app.get('/select',(req,res) => {
+  connection.query('select * from register',function(err,result){
+    if(err)
+    {
+      return res.send(err);
+    }
+    else{
+      return res.json({
+        data:result
+      })
+    }
+  });
+});
 
 app.listen(4000,()=>{
   console.log("connected");

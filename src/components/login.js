@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import { Base64 } from 'js-base64';
 import './login.css';
 class Login extends Component{
   state={
@@ -10,17 +11,21 @@ class Login extends Component{
     login:[],
     name:"",
   };
+
   componentDidMount(){
     this.getLogin()
   }
+
   getLogin = _ =>{
     fetch("http://localhost:4000/login")
     .then(response=>response.json())
     .then(response=>this.setState({login:response.data}))
     .catch(err=>console.log(err))
   }
-  passLogin = _ => {
-    fetch(`http://localhost:4000/select?email=${this.state.namel}`)
+
+  decryptPassword = (e) => {
+    var decode = Base64.decode(e);
+    return decode;
   }
 
   NamelChange = (event) => {
@@ -28,11 +33,13 @@ class Login extends Component{
       namel:event.target.value
     })
   }
+
   PasslChange = (event) => {
     this.setState({
       passl:event.target.value
     })
   }
+
   submit = ()=> {
     let error = 0;
     let name="";
@@ -53,16 +60,20 @@ class Login extends Component{
     if(error===0)
     {
       this.state.login.map(this.renderLogin = ({i,Name,Email,Pass}) => {
-          if(this.state.namel===Email && this.state.passl===Pass)
+          if(this.state.namel===Email)
           {
-              error=2;
-              name=Name;
+              var decodePassword = this.decryptPassword(Pass);
+              if(this.state.passl === decodePassword)
+              {
+                error=2;
+                name=Name;
+              }
           }
         });
       if(error===2)
       {
-        this.passLogin();
-        this.props.start(name,this.state.namel);
+        this.props.start(name);
+        this.props.getId(this.state.namel);
         this.props.history.push('./');
       }
       else {
@@ -72,6 +83,7 @@ class Login extends Component{
       }
     }
   }
+
   render(){
      return(
        <div className="bg">

@@ -1,20 +1,64 @@
 import React,{Component} from 'react';
 import './profile.css';
-class Profile extends Component{
-  render(){
 
+class Profile extends Component{
+
+  state={
+    Name:"je",
+    Mail:"",
+    RollNo:"",
+    Department:"",
+    Year:"",
+    Key:"",
+    profile:[],
+  };
+
+  componentDidMount(){
+    this.getProfile()
+  }
+
+
+  getProfile = _ =>{
+    fetch(`http://localhost:4000/select`)
+    .then(response=>response.json())
+    .then(response=>this.setState({profile:response.data}))
+    .catch(err=>console.log(err))
+
+  }
+
+ getValues ()  {
+   if(this.state.profile)
+   {
+     this.state.profile.map(this.renderProfile = ({i,Email,Name,RollNo,Department,Year,Hint}) => {
+       if(this.props.email===Email)
+       {
+         this.setState({
+           Name:Name,
+           Mail:Email,
+           RollNo:RollNo,
+           Department:Department,
+           Year:Year,
+           Key:Hint,
+         })
+         console.log(Name);
+       }
+     });
+
+   }
+ }
+
+  render(){
      return(
-      <div className="bg">
+      <div className="bg" onLoad={this.getValues}>
       <div className="form">
          <label className="head">User - Profile</label><br/>
-         <label>Name:</label><input type="text" /><br/><span></span><br/>
-         <label>User-Id:</label><input type="text" /><br/><span></span><br/>
-         <label>Password:</label><input type="text" /><br/><span></span><br/>
-         <label>Department:</label><input type="text" /><br/><span></span><br/>
-         <label>Year:</label><input type="text" /><br/><span></span><br/>
-         <label>Key:</label><input type="text" /><br/><span></span><br/>
-         <label>Mail:</label><input type="text" /><br/><span></span><br/>
-         <button className="sum"  >Update</button>
+         <label>Name:</label><input type="text" value={this.state.Name}/><br/><span></span><br/>
+         <label>Mail:</label><input type="text" value={this.state.Mail}/><br/><span></span><br/>
+         <label>Roll.No:</label><input type="text" value={this.state.RollNo}/><br/><span></span><br/>
+         <label>Department:</label><input type="text" value={this.state.Department}/><br/><span></span><br/>
+         <label>Year:</label><input type="text" value={this.state.Year}/><br/><span></span><br/>
+         <label>Key:</label><input type="text" value={this.state.Key}/><br/><span></span><br/>
+         <button className="sum">Update</button>
        </div></div>
      );
    }
