@@ -17,35 +17,26 @@ class Profile extends Component{
     this.getProfile()
   }
 
-
   getProfile = _ =>{
     fetch(`http://localhost:4000/select`)
     .then(response=>response.json())
-    .then(response=>this.setState({profile:response.data}))
+    .then(response => {
+          response.data.map( ({i,Email,Name,RollNo,Department,Year,Hint}) => {
+             if (this.props.email ===Email)
+             {
+                  this.setState({
+                        Name: Name,
+                        Mail: Email,
+                        RollNo: RollNo,
+                        Department: Department,
+                        Year: Year,
+                        Key: Hint,
+                  })
+             }
+           })
+      })
     .catch(err=>console.log(err))
-
   }
-
- getValues ()  {
-   if(this.state.profile)
-   {
-     this.state.profile.map(this.renderProfile = ({i,Email,Name,RollNo,Department,Year,Hint}) => {
-       if(this.props.email===Email)
-       {
-         this.setState({
-           Name:Name,
-           Mail:Email,
-           RollNo:RollNo,
-           Department:Department,
-           Year:Year,
-           Key:Hint,
-         })
-         console.log(Name);
-       }
-     });
-
-   }
- }
 
   render(){
      return(

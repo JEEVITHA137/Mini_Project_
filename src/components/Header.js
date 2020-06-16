@@ -94,7 +94,7 @@ getId = (e) => {
             <Route exact path="/" component={Home}/>
             <Route exact path="/register" render={(props)=><Register {...props}  start={this.start}  getId={this.getId} email={this.state.email}/>}/>
             <Route exact path="/profile" render={(props)=><Profile {...props} email={this.state.email}/>}/>
-            <Route exact path="/key" component={Key}/>
+            <Route exact path="/key" render={(props)=><Key {...props} email={this.state.email}/>}/>
             <Route exact path="/widget" component={Widget}/>
             </BrowserRouter>
           </nav>

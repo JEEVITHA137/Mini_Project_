@@ -3,7 +3,7 @@ import FusionCharts from 'fusioncharts';
 import Charts from 'fusioncharts/fusioncharts.charts';
 import ReactFC from 'react-fusioncharts';
 import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
-
+import './login.css';
 ReactFC.fcRoot(FusionCharts, Charts, FusionTheme);
 
 // Preparing the chart data
@@ -50,7 +50,11 @@ const chartConfigs = {
 
 class Widget extends Component {
   render () {
-    return <ReactFC {...chartConfigs} />;
+    return (
+       <div className="bg">
+         <ReactFC {...chartConfigs} />
+       </div>
+    );
   }
 }
 

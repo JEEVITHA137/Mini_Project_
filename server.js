@@ -56,6 +56,20 @@ app.get('/select',(req,res) => {
   });
 });
 
+app.get('/api',(req,res)=>{
+  connection.query('select Email,APIKey from register',function(err,result){
+    if(err)
+    {
+      return res.send(err);
+    }
+    else{
+      return res.json({
+        data:result
+      })
+    }
+  });
+});
+
 app.listen(4000,()=>{
   console.log("connected");
 });
