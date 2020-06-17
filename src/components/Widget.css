@@ -1,0 +1,13 @@
+.bg{
+  background-image: url('../bg.jpeg');
+  height:1050px;
+  margin-top: 10px;
+  padding-top:70px;
+  padding-left: 30px;
+  padding-bottom: 10px;
+}
+
+.graph{
+  width:650px;
+  padding:0px 0px 30px 280px;
+}

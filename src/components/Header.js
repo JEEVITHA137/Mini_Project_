@@ -16,7 +16,7 @@ class Header extends Component{
       }
     ],
     email:"",
-
+   ApiKey:""
   };
 
  start = (e) =>
@@ -55,9 +55,20 @@ class Header extends Component{
 
 getId = (e) => {
   this.setState({email:e})
+  this.getApiKey(e)
 }
 
-  view = () => {
+getApiKey = (e) =>{
+  fetch(`http://localhost:4000/user/${e}`)
+  .then(response=>response.json())
+  .then(response=>
+    {
+      this.setState({ApiKey:response.data[0].ApiKey})
+    })
+  .catch(err=>console.log(err))
+}
+
+view = () => {
     return this.state.logged.map((logged,i) =>
     <div className="dropdown">
       <li key={i} ><Link to={logged.link} className="list dropdown">{logged.name}</Link></li>
@@ -95,7 +106,7 @@ getId = (e) => {
             <Route exact path="/register" render={(props)=><Register {...props}  start={this.start}  getId={this.getId} email={this.state.email}/>}/>
             <Route exact path="/profile" render={(props)=><Profile {...props} email={this.state.email}/>}/>
             <Route exact path="/key" render={(props)=><Key {...props} email={this.state.email}/>}/>
-            <Route exact path="/widget" component={Widget}/>
+            <Route exact path="/widget" render={(props)=><Widget {...props} ApiKey={this.state.ApiKey}/>}/>
             </BrowserRouter>
           </nav>
       </header>

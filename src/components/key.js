@@ -10,18 +10,18 @@ class Key extends Component{
       this.getKey()
   }
 
-  getKey = _ =>{
+  getKey = () =>{
       fetch(`http://localhost:4000/api`)
       .then(response=>response.json())
       .then(response => {
             response.data.map( ({i,Email,APIKey}) => {
-               if (this.props.email ===Email)
+               if (this.props.email === Email)
                {
                     this.setState({key:APIKey})
-                    console.log(this.state.key)
                }
              })
         })
+     .catch(err=>console.log(err))
     }
 
   render(){

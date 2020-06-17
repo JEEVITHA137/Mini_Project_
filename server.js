@@ -70,6 +70,65 @@ app.get('/api',(req,res)=>{
   });
 });
 
+app.post('/profile',(req,res)=>{
+  const roll = req.query;
+  const update = `Update register set RollNo='10' where Email='jeevi@gmail.com'`;
+  connection.query(update,function(err,result){
+    if(err)
+    {
+      return res.send(err);
+    }
+    else{
+      return res.json({
+        data:result
+      })
+    }
+  });
+});
+
+app.get('/user/:id',(req,res)=>{
+  connection.query('select ApiKey from register where Email=?',[req.params.id],function(err,result){
+    if(err)
+    {
+      return res.send(err);
+    }
+    else{
+      return res.json({
+        data:result
+      })
+    }
+  });
+});
+
+
+app.get('/rainsensor/:id',(req,res)=>{
+  connection.query('select moisture,Nonmoisture from moisture where ApiKey=?',[req.params.id],function(err,result){
+    if(err)
+    {
+      return res.send(err);
+    }
+    else{
+      return res.json({
+        data:result
+      })
+    }
+  });
+});
+
+app.get('/irsensor/:id',(req,res)=>{
+  connection.query('select label,value from irsensor where ApiKey=?',[req.params.id],function(err,result){
+    if(err)
+    {
+      return res.send(err);
+    }
+    else{
+      return res.json({
+        data:result
+      })
+    }
+  });
+});
+
 app.listen(4000,()=>{
   console.log("connected");
 });
