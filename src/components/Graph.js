@@ -56,7 +56,6 @@ class Graph extends Component {
          <ReactFC {...this.state} />
       </div>
     );
-
 }
 }
 

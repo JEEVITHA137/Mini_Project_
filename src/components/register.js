@@ -76,7 +76,7 @@ class register extends Component{
     if(this.state.email.length<5)
     {
       this.setState({
-      emailError:"Email needs to be atleast 5 characters long"
+      emailError:"Email must be at the Correct format"
       })
     }
     else {
@@ -91,9 +91,15 @@ class register extends Component{
     this.setState({
       pass:event.target.value
     })
-    if(!(passRegex.test(this.state.pass))){
+    if(this.state.pass.length<6)
+    {
       this.setState({
-        PassError:" Atleast 8 letters have One alphanumerics"
+        PassError:"Must 6 letters"
+      })
+    }
+    else if(!(passRegex.test(this.state.pass))){
+      this.setState({
+        PassError:"Must had Capital,Small and Numeric letters"
       })
     }
     else {
